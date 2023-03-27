@@ -5,3 +5,5 @@ How to Install and Execute:
 1. Make sure you have an WiFi x802.11 Auditing NIC adapter, if you aren't familiar look it up on google. They are usually cheap and easy to find
 2. Make sure that wireshark, airmon-ng, aircrack-ng, and aireplay-ng are all pre-installed prior to executing BASH script. This can be done by using the command 'sudo apt update' then 'sudo apt install <name>' 
 3. To download and run the BASH script go into Linux CLI and use wget or git clone to grab the files from the URL: https://github.com/bunn1ez/Script-Bunniez, then make sure that you run the script in sudo after you give it executable permissions with 'chmod +x Script-Bunniez'
+4. Here is an amazon link to an 802.11 dual wave; 2.4GHz & 5GHz WiFi Dongle:
+ https://www.amazon.com/wireless-USB-WiFi-Adapter-PC/dp/B07P5PRK7J/
