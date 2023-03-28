@@ -40,7 +40,7 @@ echo "Please plug in you 802.11 NIC adapter, Exiting..."; sleep 2s; exit 1; fi
 
 wlan=$(iwconfig 2>/dev/null | grep -oP '^\w+'); IFACE = $wlan
 
-if [ "$wlan" == "wlan0" ] [ "$wlan" == "wlan1" ] || [ "$wlan" == "wlan0mon" ] || [ "$wlan" == "wlan1mon" ]; then
+if [ "$wlan" == "wlan0" ] || [ "$wlan" == "wlan1" ] || [ "$wlan" == "wlan0mon" ] || [ "$wlan" == "wlan1mon" ]; then
   echo "The current wlan interface for the NIC is: $IFACE"
 else
   echo "Please plug in your NIC, exiting..."; sleep 2.5s; exit 1; fi; sleep 2s
