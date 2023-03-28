@@ -7,10 +7,4 @@ How to Install and Execute:
 3. Make sure the wordlist for WPA2 cracking is in the same directory you run the script in.
 4. Here is an amazon link to an 802.11 dual wave; 2.4GHz & 5GHz WiFi Dongle:
  https://www.amazon.com/wireless-USB-WiFi-Adapter-PC/dp/B07P5PRK7J/
-
-   _____           _       __  ____                    _
-  / ___/__________(_)___  / /_/ __ )__  ______  ____  (_)__  ____ 
-  \__ \/ ___/ ___/ / __ \/ __/ __  / / / / __ \/ __ \/ / _ \/_  / (\_/)
- ___/ / /__/ /  / / /_/ / /_/ /_/ / /_/ / / / / / / / /  __/ / /_ (o.o)
-/____/\___/_/  /_/ .___/\__/_____/\__,_/_/ /_/_/ /_/_/\___/ /___/ (> <)
-                /_/ 
+ <img width="953" alt="SB" src="https://user-images.githubusercontent.com/128931852/228379153-5e73c4c6-4324-4430-b930-febeacfc9045.png">
