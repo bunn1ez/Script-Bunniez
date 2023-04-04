@@ -18,7 +18,7 @@ if [ "$DOWN" == "y" ] || [ "$DOWN" == "Y" ]; then
 echo "Great, lets move on!"
 else
 echo "Lets Download these now!"; sleep 2s
-echo "Updating apt..."
+echo "Updating apt..."; sleep 0.5s
 apt update >/dev/null 2>&1; sleep 12s
 echo "Installing Airmon-ng..."; sleep 2s
 apt install airmon-ng >/dev/null 2>&1; sleep 10s 
