@@ -37,7 +37,7 @@ read -p "Have you plugged in your 802.11x NIC adapter? (y/n): " INPUT
 if [ "$INPUT" == "y" ] || [ "$INPUT" == "Y" ]; then
 echo "Great! Let's get started"
 else
-echo "Please plug in you 802.11 NIC adapter, Exiting..."; sleep 2s; exit 1; fi
+echo "Please plug in you 802.11x NIC adapter, Exiting..."; sleep 2s; exit 1; fi
 
 wlan=$(iwconfig 2>/dev/null | grep -oP '^\w+'); IFACE="$wlan"
 
