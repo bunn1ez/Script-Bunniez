@@ -72,25 +72,26 @@ read -p "(MAC of Target/Client): " CLIENT
 else 
 echo "Ok, moving on.."; fi; sleep 2s
 
-read -p "Would you like to spoof your ip, netmask, broadcast, and MAC addresses for an extra layer of security? (y/n): " SPOOF
+read -p "Would you like to spoof your ip, netmask, broadcast, and MAC addresse for an extra layer of security? (y/n): " SPOOF
 
 if [ "$SPOOF" == "y" ] || [ "$SPOOF" == "Y" ]; then
-echo "Lets Spoof The IP, NetMask, Broadcast, and MAC"; sleep 2s
+read -p "Please enter the interface you want to spoof (e.g., eth0): " INTERFACE; sleep 1.5s
+echo "Spoofing the ip, netmask, broadcast, and MAC address.."; sleep 2s
 echo "The addresses are going to be spoofed to 192.168.181.115 for ip, 255.255.0.0 for netmask, 192.168.1.255 for broadcast, and 00:11:22:33:44:55 for the MAC address"; sleep 3s
-ifconfig eth0 down
+ifconfig $INTERFACE down
 sleep 0.5
-ifconfig eth0 hw ether 00:11:22:33:44:55
+ifconfig $INTERFACE hw ether 00:11:22:33:44:55
 sleep 0.5
-ifconfig eth0 192.168.181.115 netmask 255.255.0.0 broadcast 192.168.1.255
+ifconfig $INTERFACE 192.168.181.115 netmask 255.255.0.0 broadcast 192.168.1.255
 sleep 0.5
-ifconfig eth0 up
+ifconfig $INTERFACE up
 sleep 0.5
-dhclient eth0
+dhclient $INTERFACE
 sleep 1.5
 service NetworkManager restart; sleep 10s
 service NetworkManager restart; sleep 1s
 else
-echo "No problem, moving on..."; fi; sleep 3s
+echo "Moving on.."; fi; sleep 3s
 
 echo "Now lets figure out the target WiFi's BSSID"; sleep 2s
 echo "Starting airodump-ng to display the WiFis' Info"; sleep 2s
