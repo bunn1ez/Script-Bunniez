@@ -13,30 +13,24 @@ echo "/____/\___/_/  /_/ .___/\__/_____/\__,_/_/ /_/_/ /_/_/\___/ /___/ (> <)"
 echo "                /_/ "
 echo " "
 echo "ScriptBunniez IEEE 802.11 WiFi-Deauthing/WPA2cracking-Script "; sleep 2s
-echo "  By: Bunn1ez
+echo "  By: Bunn1ez"
 echo " "
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 sleep 2s
-read -p "Have you downloaded  wireshark, airodump-ng, aireplay-ng, airmon-ng, aircrack-ng and kismet? (y/n): " DOWN
+read -p "Have you downloaded  aircrack-ng, kismet, and wireshark? (y/n): " DOWN
 
 if [ "$DOWN" == "y" ] || [ "$DOWN" == "Y" ]; then
-echo "Great, lets move on!"
+echo "Moving on.."
 else
-echo "Lets Download these now!"; sleep 2s
+echo "Downloading these now"; sleep 2s
 echo "Updating apt..."
 apt update >/dev/null 2>&1; sleep 12s
-echo "Installing Airmon-ng..."; sleep 2s
-apt install airmon-ng >/dev/null 2>&1; sleep 10s 
-echo "Installing Aircrack-ng..."; sleep 2s
+echo "Installing aircrack-ng..."; sleep 2s
 apt install aircrack-ng >/dev/null 2>&1; sleep 10s
-echo "Installing Kismet..."; sleep 2s
+echo "Installing kismet..."; sleep 2s
 apt install kismet >/dev/null 2>&1; sleep 10s 
-echo "Installing Wireshark..."; sleep 2s
-apt install wireshark >/dev/null 2>&1; sleep 10s
-echo "Installing Aireplay-ng..."; sleep 2s
-apt install aireplay-ng >/dev/null 2>&1; sleep 10s
-echo "Installing Airodump-ng..."; sleep 2s 
-apt install airodump-ng >/dev/null 2>&1; sleep 10s; fi
+echo "Installing wireshark..."; sleep 2s
+apt install wireshark >/dev/null 2>&1; sleep 10s; fi
 
 read -p "Have you plugged in your 802.11x NIC adapter? (y/n): " INPUT
 
@@ -48,17 +42,17 @@ echo "Please plug in you 802.11 NIC adapter, Exiting..."; sleep 2s; exit 1; fi
 
 wlan=$(iwconfig 2>/dev/null | grep -oP '^\w+'); IFACE="$wlan"
 
-if [ "$wlan" == "wlan0" ] || [ "$wlan" == "wlan1" ] || [ "$wlan" == "wlan0mon" ] || [ "$wlan" == "wlan1mon" ]; then
+if [ "$wlan" == "wlan0" ] || [ "$wlan" == "wlan1" ] || [ "$wlan" == "wlan0mon" ] || [ "$wlan" == "wlan2mon" ] || [ "$wlan" == "wlan3mon" ] || [ "$wlan" == "wlan4mon" ] || [ "$wlan" == "wlan1mon" ] || [ "$wlan" == "wlan2" ] || [ "$wlan" == "wlan3" ] || [ "$wlan" == "wlan4" ]; then
 echo "The current wlan interface for the NIC is: $IFACE"
 else
 echo "Please plug in your NIC, exiting..."; sleep 2.5s; exit 1; fi; sleep 2s
 
-echo "Now Starting Airmon-ng to put the NIC in monitor mode.."; sleep 0.2s
+echo "Now Starting Airmon-ng to put the NIC(Network Interface Card) in monitor mode.."; sleep 0.2s
 airmon-ng check kill >/dev/null 2>&1; sleep 0.2s
 airmon-ng start $IFACE >/dev/null 2>&1; sleep 2s
 
-if [ "$IFACE" == "wlan0" ] || [ "$IFACE" == "wlan1" ]; then
-IFACE="$wlan""mon"; command -n
+if [ "$IFACE" == "wlan0" ] || [ "$IFACE" == "wlan1" ] || [ "$IFACE" == "wlan2" ] || [ "$IFACE" == "wlan3" ] || [ "$IFACE" == "wlan4" ]; then
+IFACE="$wlan""mon"
 else
 sleep 0.1s
 fi
