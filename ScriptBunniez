@@ -61,7 +61,7 @@ read -p "Are you going to do a client deauth? (y/n): " POP
 if [ "$POP" == "y" ] || [ "$POP" == "Y" ]; then
 sleep 0.5s
 read -p "To run kismet on firefox, please put your CLI username here: " USR; sleep 1.5s
-echo "Now starting up Kismet on $IFACE and routing to localhost to display and label the MACs' in the vicinity..."; sleep 2.5s
+echo "Now starting up Kismet on $IFACE and routing to localhost to display and label the MAC addresses in the vicinity..."; sleep 2.5s
 kismet -c $IFACE >/dev/null 2>&1 &
 URL="http://localhost:2501"; sleep 1s
 echo "Killing current firefox session, make sure to use 'ctrl+c' when done with kismet..."
