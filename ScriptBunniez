@@ -12,7 +12,7 @@ echo " ___/ / /__/ /  / / /_/ / /_/ /_/ / /_/ / / / / / / / /  __/ / /_ (o.o)"
 echo "/____/\___/_/  /_/ .___/\__/_____/\__,_/_/ /_/_/ /_/_/\___/ /___/ (> <)"
 echo "                /_/ "
 echo " "
-echo "ScriptBunniez IEEE 802.11x WiFi-Deauthing / WPA2-Cracking "; sleep 2s
+echo "ScriptBunniez IEEE 802.11x WiFi-Deauthing || WPA2-Cracking "; sleep 2s
 echo " "
 echo "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
 sleep 2s
